@@ -1,0 +1,38 @@
+# python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+dist/
+build/
+
+# virtual environment
+wesspeaker_env/
+venv/
+env/
+
+# models
+pretrained_models/
+*.onnx
+*.pt
+*.pth
+
+# data files
+data/
+*.flac
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+wespeaker-master/venv/
+*.wav
+*.pkl
