@@ -7,8 +7,6 @@ wespeaker @ git+https://github.com/wenet-e2e/wespeaker.git
 numpy
 scipy
 pyyaml
-umap-learn
-hdbscan
 peft
 openai-whisper
 s3prl
