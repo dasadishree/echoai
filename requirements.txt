@@ -5,7 +5,8 @@ torch
 torchaudio
 wespeaker @ git+https://github.com/wenet-e2e/wespeaker.git
 numpy
-scipypyyaml
+scipy
+pyyaml
 umap-learn
 hdbscan
 peft
