@@ -5,7 +5,6 @@ to whoever at hc is reviewing my project: my github stop[ped working and i could
 - BUT! heres a screenshot/video of my commits locally if that is helpful LOOL 😭😭😭
 <img width="1470" height="956" alt="Screenshot 2026-02-18 at 3 48 52 PM" src="https://github.com/user-attachments/assets/c88395a3-bd01-4dcb-9728-86bf0358a89b" />
 <img width="1470" height="956" alt="Screenshot 2026-02-18 at 4 06 01 PM" src="https://github.com/user-attachments/assets/35eeea43-ec6f-4e27-b44c-c368cced9554" />
-https://drive.google.com/file/d/10E0x-Q8083eTB9PSDX2cnOb0OQn_QwGj/view?usp=sharing
 
 HOW TO RUN:
 - Training data located in the labeled_samples folder
