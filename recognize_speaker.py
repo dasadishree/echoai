@@ -43,7 +43,6 @@ def _trim_and_get_path(path: str, max_duration: float):
     del data
     return tmp, tmp
 
-
 def recognize(profiles_path: str, audio_path: str, language: str = "english", max_duration: float = None):
     patch_torchaudio_for_soundfile()
     with open(os.devnull, 'w') as f, redirect_stdout(f):

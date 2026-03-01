@@ -5,10 +5,15 @@ import shutil
 import os
 from recognize_speaker import recognize
 
-app = FastAPI()
+app = FastAPI(title="EchoAI", description="Speaker recognition — upload a .wav to identify who's speaking")
 UPLOAD_DIR = "temp_uploads"
 PROFILES_PATH = "speaker_profiles.pkl"
 os.makedirs(UPLOAD_DIR, exist_ok=True)
+
+
+@app.get("/health")
+async def health():
+    return {"status": "ok", "app": "EchoAI"}
 
 @app.post("/identify")
 async def identify_speaker(file: UploadFile = File(...)):
@@ -34,12 +39,15 @@ async def identify_speaker(file: UploadFile = File(...)):
         if os.path.exists(file_path):
             os.remove(file_path)
 
-@app.get("/", response_class=HTMLResponse)
-async def main():
-    return """
-    <html>
+@app.get("/", response_class=HTMLResponse, include_in_schema=False)
+async def home():
+    return (
+        """<!DOCTYPE html>
+    <html lang="en">
         <head>
-            <title>EchoAI</title>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>EchoAI – Speaker recognition</title>
             <style>
                 body { 
                     font-family: sans-serif;
@@ -186,6 +194,6 @@ async def main():
                 }
             </script>
         </body>
-    </html>    
-
+    </html>
     """
+    )
