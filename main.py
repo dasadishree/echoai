@@ -1,30 +1,35 @@
 # api
-from fastapi import FastAPI, UploadFile, File
+from fastapi import FastAPI, UploadFile, File, HTTPException
 from fastapi.responses import HTMLResponse
 import shutil
 import os
 from recognize_speaker import recognize
 
-app=FastAPI()
+app = FastAPI()
 UPLOAD_DIR = "temp_uploads"
+PROFILES_PATH = "speaker_profiles.pkl"
 os.makedirs(UPLOAD_DIR, exist_ok=True)
 
 @app.post("/identify")
 async def identify_speaker(file: UploadFile = File(...)):
+    if not file.filename or not file.filename.lower().endswith(".wav"):
+        raise HTTPException(400, "Please upload a .wav file")
+    if not os.path.isfile(PROFILES_PATH):
+        raise HTTPException(503, "Speaker profiles not loaded. Add speaker_profiles.pkl to the repo or run training.")
+
     file_path = os.path.join(UPLOAD_DIR, file.filename)
-    
-    with open(file_path, "wb") as buffer:
-        shutil.copyfileobj(file.file, buffer)
-
     try:
-        name, confidence, all_scores = recognize("speaker_profiles.pkl", file_path)
+        with open(file_path, "wb") as buffer:
+            shutil.copyfileobj(file.file, buffer)
 
+        name, confidence, all_scores = recognize(
+            PROFILES_PATH, file_path, language="english", max_duration=30
+        )
         return {
             "name": name.replace("_", " "),
-            "confidence": f"{confidence:.2%}",
-            "all_scores": {k: f"{v:.2%}" for k, v in sorted(all_scores.items(), key=lambda x: x[1], reverse=True)}
+            "confidence": f"{confidence:.4%}",
+            "all_scores": {k: f"{v:.4%}" for k, v in sorted(all_scores.items(), key=lambda x: x[1], reverse=True)},
         }
-    
     finally:
         if os.path.exists(file_path):
             os.remove(file_path)
